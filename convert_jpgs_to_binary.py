@@ -17,9 +17,10 @@ def convert(path):
     files = []
     classes = {}
     i = 0
-    print(os.listdir(path))
 
+    print("Labels")
     for dirname in sorted(os.listdir(path)):
+        print(i, dirname)
         classes[dirname] = i
         i+=1
         for sample in os.listdir(os.path.join(path, dirname)):
