@@ -4,7 +4,7 @@ import re
 import os
 FLAGS = tf.app.flags.FLAGS
 
-tf.app.flags.DEFINE_integer('batch_size', 256,
+tf.app.flags.DEFINE_integer('batch_size', 150,
                             "Number of images to process in a batch")
 tf.app.flags.DEFINE_string('data_dir', "TrainingBatches",
                             "Path to the batch directory")
