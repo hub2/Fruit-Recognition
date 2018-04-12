@@ -3,6 +3,7 @@ import os
 import numpy as np
 import random
 import struct
+from image_input import IMAGE_SIZE
 
 def convert_one(path, out_dir):
     byt = image_to_labeled_bytearray(path, 0)
@@ -14,7 +15,7 @@ def convert_one(path, out_dir):
 
 def image_to_labeled_bytearray(path, label):
     i = Image.open(path)
-    i.thumbnail((50,50), Image.ANTIALIAS)
+    i.thumbnail((IMAGE_SIZE,IMAGE_SIZE), Image.ANTIALIAS)
     a = np.array(i)
     rs = bytearray(a[:,:,0])
     gs = bytearray(a[:,:,1])

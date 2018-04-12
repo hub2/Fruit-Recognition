@@ -2,7 +2,7 @@ import tensorflow as tf
 import os
 
 
-IMAGE_SIZE = 50
+IMAGE_SIZE = 25
 NUM_CLASSES = 60
 
 NUM_EXAMPLES_PER_EPOCH_FOR_TRAIN = 50000

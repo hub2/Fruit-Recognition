@@ -9,7 +9,7 @@ class MyFirstGUI:
         self.master = master
         master.title("A simple GUI")
 
-        self.label = Label(master, text="This is our first GUI!")
+        self.label = Label(master, text="unknown")
         self.label.pack()
 
         self.load_file_button = Button(master, text="Load File", command=self.load_file)
@@ -26,7 +26,9 @@ class MyFirstGUI:
             return
         convert_one(self.image_path, "tmp")
         print("Converted")
-        print(evaluate())
+
+        name = evaluate()
+        self.label['text'] = name
 
     def load_file(self):
         filename = filedialog.askopenfilename(filetypes =( ("All files", "*.*")
@@ -37,9 +39,11 @@ class MyFirstGUI:
             try:
                 self.image_path = filename
                 image = Image.open(self.image_path)
+                if image.size[0] != image.size[1]:
+                    raise Exception("only square images work at this time")
                 self.photo = ImageTk.PhotoImage(image)
-            except:
-                messagebox.showerror("Open Image File", "Failed to read file \n'%s'" % filename)
+            except Exception as e:
+                messagebox.showerror("Open Image File", "Failed to read file \n'%s', %s" % (filename,str(e)))
                 return
 root = Tk()
 my_gui = MyFirstGUI(root)
