@@ -45,11 +45,11 @@ tf.app.flags.DEFINE_string('eval_dir', 'logs/eval',
                            """Directory where to write event logs.""")
 tf.app.flags.DEFINE_string('eval_data', 'test',
                            """Either 'test' or 'train_eval'.""")
-tf.app.flags.DEFINE_string('checkpoint_dir', 'logs/train',
+tf.app.flags.DEFINE_string('checkpoint_dir', '97_9_checkpoint/logs/train',
                            """Directory where to read model checkpoints.""")
-tf.app.flags.DEFINE_integer('eval_interval_secs', 15,
+tf.app.flags.DEFINE_integer('eval_interval_secs', 5,
                             """How often to run the eval.""")
-tf.app.flags.DEFINE_integer('num_examples', 10000,
+tf.app.flags.DEFINE_integer('num_examples', 15000,
                             """Number of examples to run.""")
 tf.app.flags.DEFINE_boolean('run_once', False,
                          """Whether to run eval only once.""")
@@ -92,7 +92,7 @@ def eval_once(saver, summary_writer, top_k_op, summary_op):
         predictions = sess.run([top_k_op])
         true_count += np.sum(predictions)
         step += 1
-
+      print(true_count, total_sample_count)
       # Compute precision @ 1.
       precision = true_count / total_sample_count
       print('%s: precision @ 1 = %.3f' % (datetime.now(), precision))
@@ -114,7 +114,6 @@ def evaluate():
     # Get images and labels for CIFAR-10.
     eval_data = FLAGS.eval_data == 'test'
     images, labels = mieso.inputs(eval_data=eval_data)
-
     # Build a Graph that computes the logits predictions from the
     # inference model.
     logits = mieso.inference(images)
