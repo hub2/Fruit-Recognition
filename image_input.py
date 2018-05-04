@@ -61,8 +61,8 @@ def distorted_inputs(data_dir, batch_size):
     read_input = read_image(filename_queue)
     reshaped_image = tf.cast(read_input.uint8image, tf.float32)
 
-    height = IMAGE_SIZE/2
-    width = IMAGE_SIZE/2
+    height = IMAGE_SIZE//2
+    width = IMAGE_SIZE//2
 
     # Image processing for training the network. Note the many random
     # distortions applied to the image.
