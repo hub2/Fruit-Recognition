@@ -2,8 +2,8 @@ import tensorflow as tf
 import os
 
 
-IMAGE_SIZE = 50
-NUM_CLASSES = 60
+IMAGE_SIZE = 100
+NUM_CLASSES = 42
 
 NUM_EXAMPLES_PER_EPOCH_FOR_TRAIN = 50000
 NUM_EXAMPLES_PER_EPOCH_FOR_EVAL = 10000
@@ -61,8 +61,8 @@ def distorted_inputs(data_dir, batch_size):
     read_input = read_image(filename_queue)
     reshaped_image = tf.cast(read_input.uint8image, tf.float32)
 
-    height = IMAGE_SIZE
-    width = IMAGE_SIZE
+    height = IMAGE_SIZE/2
+    width = IMAGE_SIZE/2
 
     # Image processing for training the network. Note the many random
     # distortions applied to the image.
