@@ -8,7 +8,7 @@ tf.app.flags.DEFINE_integer('batch_size', 150,
                             "Number of images to process in a batch")
 tf.app.flags.DEFINE_string('data_dir', "TrainingBatches",
                             "Path to the batch directory")
-tf.app.flags.DEFINE_boolean('use_fp16', False,
+tf.app.flags.DEFINE_boolean('use_fp16', True,
                             "Train the model using fp16")
 
 IMAGE_SIZE = image_input.IMAGE_SIZE

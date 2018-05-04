@@ -7,7 +7,10 @@ class MyFirstGUI:
     photo = None
     def __init__(self, master):
         self.master = master
+        self.photo = None
         master.title("A simple GUI")
+        self.image_label = Label(self.master)
+        self.image_label.pack()
 
         self.label = Label(master, text="unknown")
         self.label.pack()
@@ -20,6 +23,7 @@ class MyFirstGUI:
 
         self.close_button = Button(master, text="Close", command=master.quit)
         self.close_button.pack()
+
 
     def evaluate(self):
         if not self.image_path:
@@ -39,9 +43,12 @@ class MyFirstGUI:
             try:
                 self.image_path = filename
                 image = Image.open(self.image_path)
+                image.thumbnail((200,200), Image.ANTIALIAS)
+
                 if image.size[0] != image.size[1]:
                     raise Exception("only square images work at this time")
                 self.photo = ImageTk.PhotoImage(image)
+                self.image_label.config(image=self.photo)
             except Exception as e:
                 messagebox.showerror("Open Image File", "Failed to read file \n'%s', %s" % (filename,str(e)))
                 return
