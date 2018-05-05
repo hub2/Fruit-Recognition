@@ -138,7 +138,9 @@ def inputs(eval_data, data_dir, batch_size):
         height = IMAGE_SIZE//2
         width = IMAGE_SIZE//2
 
-        float_image = tf.image.per_image_standardization(reshaped_image)
+        resized_image = tf.image.resize_image_with_crop_or_pad(reshaped_image,
+                                                           height, width)
+        float_image = tf.image.per_image_standardization(resized_image)
 
         float_image.set_shape([height, width, 3])
         read_input.label.set_shape([1])
