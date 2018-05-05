@@ -135,8 +135,8 @@ def inputs(eval_data, data_dir, batch_size):
         read_input = read_image(filename_queue)
 
         reshaped_image = tf.cast(read_input.uint8image, tf.float32)
-        height = IMAGE_SIZE
-        width = IMAGE_SIZE
+        height = IMAGE_SIZE//2
+        width = IMAGE_SIZE//2
 
         float_image = tf.image.per_image_standardization(reshaped_image)
 
