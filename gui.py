@@ -8,7 +8,7 @@ class MyFirstGUI:
     def __init__(self, master):
         self.master = master
         self.photo = None
-        master.title("A simple GUI")
+        master.title("Fruit recognition")
         self.image_label = Label(self.master)
         self.image_label.pack()
 
@@ -32,7 +32,8 @@ class MyFirstGUI:
         print("Converted")
 
         name = evaluate()
-        self.label['text'] = name
+
+        self.label['text'] = "\n".join([" -> ".join(x) for x in name])
 
     def load_file(self):
         filename = filedialog.askopenfilename(filetypes =( ("All files", "*.*")
@@ -43,7 +44,7 @@ class MyFirstGUI:
             try:
                 self.image_path = filename
                 image = Image.open(self.image_path)
-                image.thumbnail((200,200), Image.ANTIALIAS)
+                image.thumbnail((100,100), Image.ANTIALIAS)
 
                 if image.size[0] != image.size[1]:
                     raise Exception("only square images work at this time")

@@ -48,7 +48,7 @@ tf.app.flags.DEFINE_string('eval_dir', 'logs/eval',
                            """Directory where to write event logs.""")
 tf.app.flags.DEFINE_string('eval_data', 'test',
                            """Either 'test' or 'train_eval'.""")
-tf.app.flags.DEFINE_string('checkpoint_dir', '97_9_checkpoint/logs/train',
+tf.app.flags.DEFINE_string('checkpoint_dir', '50_50_cropped_checkpoint/logs/train',
                            """Directory where to read model checkpoints.""")
 tf.app.flags.DEFINE_integer('eval_interval_secs', 15,
                             """How often to run the eval.""")
@@ -84,19 +84,28 @@ def eval_once(saver, summary_writer, summary_op, logits):
                 threads.extend(qr.create_threads(sess, coord=coord, daemon=True,
                                                  start=True))
 
+
             preds = logits.eval()[0]
             index, value = max(enumerate(preds), key=operator.itemgetter(1))
+
             classes = get_classes("Training")
+
             for k,v in classes.items():
                 if index == v:
                     _class = k
+            out = []
+            preds_sorted = sorted(enumerate(preds), key=operator.itemgetter(1), reverse=True)
+            for index, value in preds_sorted[:3]:
+                for k,v in classes.items():
+                    if index == v:
+                        out.append([k, str(value)])
 
         except Exception as e:  # pylint: disable=broad-except
             coord.request_stop(e)
 
         coord.request_stop()
         coord.join(threads, stop_grace_period_secs=10)
-        return _class
+        return out
 
 
 def evaluate():
